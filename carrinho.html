@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<!--
+  carrinho.html – Página do Carrinho e Checkout
+  Lista itens do carrinho, mostra resumo e abre o wizard de finalização de compra.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrinho de Compras</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-shell">
+  <header class="header">
+    <div class="header-left">
+      <a href="catalogo.html" aria-label="Ir ao catálogo">
+        <img src="img/logo.png" alt="Marketplace" class="logo">
+      </a>
+    </div>
+    <div style="grid-column:2; text-align:center; font-weight:700;">Meu Carrinho</div>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="window.location='compras.html'">Minhas Compras</button>
+      <button class="icon-btn" onclick="window.location='catalogo.html'">Voltar ao Catálogo</button>
+    </div>
+  </header>
+
+  <main class="cart-layout">
+    <!-- Coluna esquerda: itens do carrinho -->
+    <section class="cart-items">
+      <h2>Itens do Carrinho</h2>
+      <div id="itensCarrinho"></div>
+    </section>
+
+    <!-- Coluna direita: resumo da compra -->
+    <aside class="resumo-card" aria-label="Resumo da compra">
+      <h3>Resumo da compra</h3>
+      <div class="resumo-linha"><span>Produto</span><span id="resumoProdutos">R$ 0,00</span></div>
+  <div class="resumo-linha"><span>Frete</span><span class="resumo-frete">Gratis</span></div>
+      <div class="resumo-total"><span>Total</span><strong id="resumoTotal">R$ 0,00</strong></div>
+      <button id="finalizarCompra" class="checkout-btn" type="button">Continuar a compra</button>
+    </aside>
+  </main>
+
+  <!-- Modal de Checkout (Wizard) -->
+  <div id="checkoutModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="checkoutTitulo">
+  <div class="modal-content" style="width:min(92vw,620px); --pay-panel-min: 250px;">
+      <span class="close" id="checkoutClose" aria-label="Fechar">&times;</span>
+      <h2 id="checkoutTitulo">Finalizar Compra</h2>
+
+      <!-- Stepper -->
+      <ol class="checkout-steps" id="checkoutSteps">
+        <li class="step is-active" data-step="1">Dados do Cliente</li>
+        <li class="step" data-step="2">Pagamento</li>
+        <li class="step" data-step="3">Revisão</li>
+      </ol>
+
+      <form id="formCheckout">
+        <!-- Passo 1: Cliente -->
+        <section class="checkout-pane" data-pane="1">
+          <label>Nome completo<input type="text" id="nome" required></label>
+          <label>Email<input type="email" id="email" required></label>
+          <label>Endereço<input type="text" id="endereco" required></label>
+          <label>CEP<input type="text" id="cep" required></label>
+        </section>
+
+        <!-- Passo 2: Pagamento -->
+        <section class="checkout-pane hidden" data-pane="2">
+          <div class="pay-methods" role="radiogroup" aria-label="Forma de pagamento">
+            <label><input type="radio" name="payMethod" value="cartao" checked> Cartão</label>
+            <label><input type="radio" name="payMethod" value="pix"> PIX</label>
+            <label><input type="radio" name="payMethod" value="boleto"> Boleto</label>
+          </div>
+
+          <!-- Cartão de crédito -->
+          <div id="payCartao">
+            <label>Número do cartão<input type="text" id="card" placeholder="0000 0000 0000 0000" required></label>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+              <label>Validade (MM/AA)<input type="text" id="cardVal" placeholder="MM/AA" required></label>
+              <label>CVV<input type="text" id="cardCvv" placeholder="000" required></label>
+            </div>
+            <label>Nome no cartão<input type="text" id="cardNome" required></label>
+          </div>
+
+          <!-- PIX -->
+          <div id="payPix" class="hidden">
+            <div class="pay-box">
+              <div>
+                <img id="pixQrImg" src="img/qr_code.png" alt="QR Code PIX" width="180" height="180" style="border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,.08)" />
+              </div>
+              <div class="pay-info">
+                <label>Chave PIX
+                  <input type="text" id="pixKey" readonly value="pix@mymarket.com">
+                </label>
+                <label>PIX Copia e Cola
+                  <textarea id="pixCopiaCola" rows="2" readonly></textarea>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Boleto -->
+          <div id="payBoleto" class="hidden">
+            <div class="pay-box boleto">
+              <div class="linha-area">
+                <label>Linha digitável
+                  <input type="text" id="linhaDigitavel" readonly>
+                </label>
+              </div>
+              <div class="barcode-area">
+                <canvas id="boletoBarcode" width="260" height="48" aria-label="Código de barras (fictício)"></canvas>
+              </div>
+              <div class="pay-info">
+                <p>Vencimento: <span id="boletoVenc">--/--/----</span></p>
+                <p>Valor: <span id="boletoValor">R$ 0,00</span></p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Passo 3: Revisão -->
+        <section class="checkout-pane hidden" data-pane="3">
+          <div id="checkoutResumo"></div>
+          <p id="msgFinal" class="msg" style="margin-top:8px"></p>
+        </section>
+
+        <!-- Navegação -->
+        <div class="checkout-nav">
+          <button type="button" id="btnVoltar" class="btn-secondary" disabled>Voltar</button>
+          <span></span>
+          <button type="button" id="btnProximo" class="btn-primary">Próximo</button>
+          <button type="submit" id="btnFinalizar" class="btn-primary hidden">Finalizar compra</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="carrinho.js"></script>
+  <footer class="site-footer">
+    <div class="footer-brand">
+      <img src="img/logo.png" alt="MyMarket" class="footer-logo" />
+    </div>
+    <div class="footer-socials" aria-label="Redes sociais">
+      <a class="social-link" href="#" aria-label="Instagram" title="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/>
+          <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+          <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
+        </svg>
+      </a>
+      <a class="social-link" href="#" aria-label="Facebook" title="Facebook">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M22.675 0h-21.35C.595 0 0 .594 0 1.326v21.348C0 23.406.595 24 1.326 24h11.495V14.708H9.691V11.08h3.13V8.41c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.464.099 2.797.143v3.24l-1.918.001c-1.504 0-1.796.715-1.796 1.763v2.313h3.587l-.467 3.628h-3.12V24h6.116C23.406 24 24 23.406 24 22.674V1.326C24 .594 23.406 0 22.675 0z" fill="currentColor"/>
+        </svg>
+      </a>
+      <a class="social-link" href="#" aria-label="Twitter" title="Twitter">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4l16 16"/>
+            <path d="M20 4L4 20"/>
+          </g>
+        </svg>
+      </a>
+
+    </div>
+    <p>© <span class="js-year"></span> MyMarket</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<!--
+  catalogo.html – Página de Catálogo de Produtos
+  Inclui: header com busca, sidebar de filtros (facetas e preço com slider duplo),
+  grade de produtos renderizada via script.js e modais (produto e alterar senha).
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-shell">
+  <header class="header">
+    <div class="header-left">
+      <a href="catalogo.html" aria-label="Ir ao catálogo">
+        <img src="img/logo.png" alt="Marketplace" class="logo">
+      </a>
+    </div>
+    <form id="topSearch" class="top-search" autocomplete="off">
+      <span class="search-prefix" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </span>
+      <input type="text" id="topSearchInput" placeholder="Buscar produtos...">
+    </form>
+    <div class="header-actions">
+      <div class="carrinho-box">
+        <button id="openCarrinho" class="cart-btn" aria-label="Abrir carrinho" onclick="window.location='carrinho.html'">
+          <span class="icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M6 6h15l-1.5 9h-12L6 6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M6 6L5 3H3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="9" cy="20" r="1.5" fill="currentColor"/>
+              <circle cx="18" cy="20" r="1.5" fill="currentColor"/>
+            </svg>
+            <span id="cartDot" class="cart-dot hidden"></span>
+          </span>
+          <span id="carrinhoQtd" aria-label="itens no carrinho">0</span>
+        </button>
+      </div>
+      <div class="profile" id="profile">
+        <button id="perfilBtn" class="icon-btn" title="Perfil" aria-haspopup="true" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
+            <path d="M4 21c2-4 6-6 8-6s6 2 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div id="perfilMenu" class="menu-popover hidden" role="menu" aria-labelledby="perfilBtn">
+          <div class="menu-header">Olá, <strong id="perfilNome"></strong></div>
+          <hr class="menu-sep" />
+          <a href="compras.html" role="menuitem" class="menu-item">
+            <span class="icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 6h15l-1.5 9h-12L6 6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M6 6L5 3H3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="9" cy="20" r="1.5" fill="currentColor"/>
+                <circle cx="18" cy="20" r="1.5" fill="currentColor"/>
+              </svg>
+            </span>
+            <span class="label">Minhas Compras</span>
+          </a>
+          <button id="menuAlterarSenha" role="menuitem" class="menu-item">
+            <span class="icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="4" y="10" width="16" height="10" rx="2" stroke="currentColor" stroke-width="2"/>
+                <path d="M8 10V8a4 4 0 0 1 8 0v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="12" cy="15" r="1.6" fill="currentColor"/>
+              </svg>
+            </span>
+            <span class="label">Alterar senha</span>
+          </button>
+          <button id="logout" role="menuitem" class="menu-item">
+            <span class="icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 17l5-5-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M15 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M21 3v18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span class="label">Sair</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Sidebar com filtros (baseado nas imagens enviadas) -->
+    <aside class="sidebar filter-sidebar">
+      <h3 class="filter-title">Filtros</h3>
+
+      <div class="filter-group is-collapsible is-collapsed" data-collapsible>
+        <button type="button" class="group-toggle" aria-expanded="false" aria-controls="facetCategories">
+          <span class="group-title">Categorias</span>
+          <span class="chevron" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </button>
+        <ul class="facet-list" id="facetCategories" hidden></ul>
+      </div>
+
+      <div class="filter-group is-collapsible is-collapsed" data-collapsible>
+        <button type="button" class="group-toggle" aria-expanded="false" aria-controls="facetBrands">
+          <span class="group-title">Marca</span>
+          <span class="chevron" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </button>
+        <ul class="facet-list" id="facetBrands" hidden></ul>
+      </div>
+
+      <div class="filter-group">
+        <div class="group-title">Preço</div>
+        <ul class="facet-list" id="facetPrices"></ul>
+      </div>
+
+      <div class="filter-group">
+  <div class="group-title">Preço personalizado</div>
+  <div class="facet-mini-title">Intervalo de Preço</div>
+        <div class="range-wrap">
+          <div class="range-double" id="precoRange">
+            <div class="track"></div>
+            <input type="range" id="precoRangeMin" min="0" step="1" aria-label="Preço mínimo" />
+            <input type="range" id="precoRangeMax" min="0" step="1" aria-label="Preço máximo" />
+          </div>
+          <div class="range-scale">
+            <span id="precoRangeMinLabel">R$ 0,00</span>
+            <span id="precoRangeMaxLabel">R$ 0,00</span>
+          </div>
+        </div>
+        <label class="input-icon">
+          <span class="icon-money" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="#9ca3af"/><path d="M8.5 12h7M12 8v8" stroke="#9ca3af" stroke-linecap="round"/></svg>
+          </span>
+          <input type="number" id="precoMin" placeholder="Mínimo" min="0">
+        </label>
+        <div style="height:6px"></div>
+        <label class="input-icon">
+          <span class="icon-money" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="#9ca3af"/><path d="M8.5 12h7M12 8v8" stroke="#9ca3af" stroke-linecap="round"/></svg>
+          </span>
+          <input type="number" id="precoMax" placeholder="Máximo" min="0">
+        </label>
+        <div class="filter-actions" style="display:flex; gap:8px; margin-top:8px">
+          <button id="filtrar" class="filter-apply">Aplicar filtros</button>
+          <button id="limparFiltros" class="btn-secondary" type="button" aria-label="Limpar filtros">Limpar</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Produtos carregados via JS -->
+    <section class="produtos" id="listaProdutos"></section>
+  </main>
+
+  <!-- Modal de detalhes do produto -->
+  <div id="produtoModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="produtoTitulo">
+    <div class="modal-content produto-modal">
+      <span class="close" id="produtoModalClose" aria-label="Fechar">&times;</span>
+      <div class="produto-modal-body">
+        <div class="produto-modal-media">
+          <img id="produtoImagem" alt="Produto"/>
+        </div>
+        <div class="produto-modal-info">
+          <h2 id="produtoTitulo"></h2>
+          <p id="produtoDescricao"></p>
+          <div class="produto-meta">
+            <span class="meta"><strong>Marca:</strong> <span id="produtoMarca"></span></span>
+            <span class="meta"><strong>Categoria:</strong> <span id="produtoCategoria"></span></span>
+          </div>
+          <strong id="produtoPreco" class="price"></strong>
+          <p id="produtoMedia" class="media"></p>
+          <button id="produtoAddCarrinho" class="addCarrinho">Adicionar ao Carrinho</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+      <!-- Modal: Alterar senha -->
+      <div id="alterarSenhaModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="alterarSenhaTitulo">
+        <div class="modal-content" style="width:min(92vw, 420px)">
+          <span class="close" id="alterarSenhaClose" aria-label="Fechar">&times;</span>
+          <h2 id="alterarSenhaTitulo">Alterar senha</h2>
+          <form id="alterarSenhaForm">
+            <label>Senha atual
+              <input type="password" id="senhaAtual" required>
+            </label>
+            <label>Nova senha
+              <input type="password" id="senhaNova" required>
+            </label>
+            <div id="altStrength" class="pwd-strength is-weak" aria-live="polite">
+              <div class="bar"></div>
+              <div class="label">Força: ruim</div>
+            </div>
+  <div class="helper-text">A senha deve ter no mínimo 8 caracteres, incluindo pelo menos 1 letra maiúscula e 1 número.</div>
+            <label>Confirmar nova senha
+              <input type="password" id="senhaConf" required>
+            </label>
+            <p id="alterarSenhaMsg" class="msg"></p>
+            <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:8px">
+              <button type="button" class="btn-secondary" id="alterarSenhaCancelar">Cancelar</button>
+              <button type="submit" class="btn-primary">Salvar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+  <script src="script.js"></script>
+  <footer class="site-footer">
+    <div class="footer-brand">
+      <img src="img/logo.png" alt="MyMarket" class="footer-logo" />
+    <div class="footer-socials" aria-label="Redes sociais">
+      <a class="social-link" href="#" aria-label="Instagram" title="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/>
+          <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+          <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
+        </svg>
+      </a>
+      <a class="social-link" href="#" aria-label="Facebook" title="Facebook">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M22.675 0h-21.35C.595 0 0 .594 0 1.326v21.348C0 23.406.595 24 1.326 24h11.495V14.708H9.691V11.08h3.13V8.41c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.464.099 2.797.143v3.24l-1.918.001c-1.504 0-1.796.715-1.796 1.763v2.313h3.587l-.467 3.628h-3.12V24h6.116C23.406 24 24 23.406 24 22.674V1.326C24 .594 23.406 0 22.675 0z" fill="currentColor"/>
+        </svg>
+      </a>
+      <a class="social-link" href="#" aria-label="Twitter" title="Twitter">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4l16 16"/>
+            <path d="M20 4L4 20"/>
+          </g>
+        </svg>
+      </a>
+
+    </div>
+    <p>© <span class="js-year"></span> MyMarket</p>
+  </footer>
+</body>
+</html>

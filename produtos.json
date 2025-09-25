@@ -1,0 +1,200 @@
+[
+  {
+    "id": 1,
+    "nome": "Notebook Asus Zenbook",
+    "descricao": "Tela OLED 14” 2880x1800, Intel Core i7 (13ª geração), 16GB LPDDR5, 512GB SSD NVMe, Windows 11, ~1,3kg — ideal para mobilidade e criação",
+    "preco": 5850,
+    "imagem": "img/zenbook.jpg",
+    "marca": "Asus",
+    "categoria": "Notebooks"
+  },
+  {
+    "id": 2,
+    "nome": "Asus Vivobook",
+    "descricao": "AMD Ryzen 7 5700U, 8GB DDR4, 512GB SSD NVMe, Tela 15,6” FHD, Wi‑Fi 5, Windows 11 — ótimo custo/benefício para estudo e trabalho",
+    "preco": 4390,
+    "imagem": "img/vivobook.jpg",
+    "marca": "Asus",
+    "categoria": "Notebooks"
+  },
+  {
+    "id": 3,
+    "nome": "Monitor Asus ProArt",
+    "descricao": "Monitor profissional da linha ProArt com alta fidelidade de cores, amplo gamut, calibração de fábrica e múltiplas conexões — ideal para criação e pós-produção",
+    "preco": 8880,
+    "imagem": "img/proart.png",
+    "marca": "Asus",
+    "categoria": "Monitores"
+  },
+  {
+    "id": 4,
+    "nome": "Mouse Logitech G203",
+    "descricao": "Sensor de 8000 DPI, RGB LIGHTSYNC, 6 botões programáveis, 85g, cabo USB — precisão e conforto para longas sessões",
+    "preco": 129,
+    "imagem": "img/203.png",
+    "marca": "Logitech",
+    "categoria": "Periféricos"
+  },
+  {
+    "id": 5,
+    "nome": "Teclado Mecânico Redragon Kumara",
+    "descricao": "Switch Outemu Blue (clicky), layout ABNT2, iluminação vermelha, construção robusta — excelente custo/benefício para digitação e jogos",
+    "preco": 219,
+    "imagem": "img/kurama.png",
+    "marca": "Redragon",
+    "categoria": "Periféricos"
+  },
+  {
+    "id": 6,
+    "nome": "Headset HyperX Cloud Stinger",
+    "descricao": "Leve (275g), drivers de 50mm, microfone com cancelamento de ruído, conchas giratórias — conforto e clareza no dia a dia",
+    "preco": 299,
+    "imagem": "img/stinger.png",
+    "marca": "HyperX",
+    "categoria": "Periféricos"
+  },
+  {
+    "id": 7,
+    "nome": "SSD Kingston A400 480GB",
+    "descricao": "SATA 2.5”, até 500MB/s leitura e 450MB/s escrita — inicialização e carregamentos rápidos com alta confiabilidade",
+    "preco": 239,
+    "imagem": "img/a400.png",
+    "marca": "Kingston",
+    "categoria": "Armazenamento"
+  },
+  {
+    "id": 8,
+    "nome": "HD Seagate Barracuda 2TB",
+    "descricao": "SATA 3.5”, 7200 RPM, 256MB de cache — amplo espaço e bom desempenho para bibliotecas de jogos e mídia",
+    "preco": 379,
+    "imagem": "img/barracuda.png",
+    "marca": "Seagate",
+    "categoria": "Armazenamento"
+  },
+  {
+    "id": 9,
+    "nome": "Memória Corsair Vengeance 16GB DDR4 3200",
+    "descricao": "Kit 2x8GB (16GB), 3200MHz CL16, compatível com XMP 2.0 — performance estável para multitarefa e jogos",
+    "preco": 349,
+    "imagem": "img/vengeance.png",
+    "marca": "Corsair",
+    "categoria": "Memória"
+  },
+  {
+    "id": 10,
+    "nome": "Placa-mãe Asus Prime B550M",
+    "descricao": "Socket AM4, formato mATX, PCIe 4.0, M.2 NVMe, DDR4 até 128GB, HDMI — base sólida para PCs Ryzen",
+    "preco": 899,
+    "imagem": "img/b550.png",
+    "marca": "Asus",
+    "categoria": "Placas-mãe"
+  },
+  {
+    "id": 11,
+    "nome": "Processador AMD Ryzen 5 5600",
+    "descricao": "6 núcleos/12 threads, até 4,4GHz boost, TDP 65W, soquete AM4 — equilíbrio ideal para jogos e produtividade",
+    "preco": 969,
+    "imagem": "img/5600.png",
+    "marca": "AMD",
+    "categoria": "Processadores"
+  },
+  {
+    "id": 12,
+    "nome": "Intel Core i5-12400F",
+    "descricao": "6C/12T (Alder Lake), excelente single-core, LGA1700, sem vídeo integrado — requer GPU dedicada",
+    "preco": 1099,
+    "imagem": "img/i512400.png",
+    "marca": "Intel",
+    "categoria": "Processadores"
+  },
+  {
+    "id": 13,
+    "nome": "Monitor Dell 24'' IPS",
+    "descricao": "Painel IPS 24” FHD, 75Hz, AMD FreeSync, bordas finas, ajuste de inclinação, suporte VESA — cores consistentes para trabalho e lazer",
+    "preco": 899,
+    "imagem": "img/dell.png",
+    "marca": "Dell",
+    "categoria": "Monitores"
+  },
+  {
+    "id": 14,
+    "nome": "Roteador TP-Link Archer C6",
+    "descricao": "Wi‑Fi AC1200 (2,4/5GHz), 5 antenas externas, MU‑MIMO, 4x LAN Gigabit + 1x WAN — ótima cobertura e estabilidade",
+    "preco": 259,
+    "imagem": "img/archerc6.png",
+    "marca": "TP-Link",
+    "categoria": "Redes"
+  },
+  {
+    "id": 15,
+    "nome": "Placa de Vídeo NVIDIA GTX 1660 Super",
+    "descricao": "6GB GDDR6 (Turing), desempenho sólido em 1080p, conexões HDMI/DP/DVI — excelente custo/benefício para jogos",
+    "preco": 1999,
+    "imagem": "img/1660.png",
+    "marca": "NVIDIA",
+    "categoria": "Placas de Vídeo"
+  },
+  {
+    "id": 16,
+    "nome": "Gabinete Cooler Master MasterBox",
+    "descricao": "Mid Tower ATX com vidro temperado, fluxo de ar otimizado, suporte a múltiplas ventoinhas e radiadores — montagem limpa e espaçosa",
+    "preco": 429,
+    "imagem": "img/masterbox.png",
+    "marca": "Cooler Master",
+    "categoria": "Gabinetes"
+  },
+  {
+    "id": 17,
+    "nome": "Fonte Corsair CX550",
+    "descricao": "550W, 80 Plus Bronze, PFC ativo, operação silenciosa, cabos longos — confiável para builds intermediárias",
+    "preco": 429,
+    "imagem": "img/CX550.png",
+    "marca": "Corsair",
+    "categoria": "Fontes"
+  },
+  {
+    "id": 18,
+    "nome": "Notebook Lenovo IdeaPad 3",
+    "descricao": "Intel Core i5 (11ª geração), 8GB RAM, 256GB SSD NVMe, tela 15,6” FHD, Windows 11 — portátil para estudo e escritório",
+    "preco": 2999,
+    "imagem": "img/ideapad3.png",
+    "marca": "Lenovo",
+    "categoria": "Notebooks"
+  },
+  {
+    "id": 19,
+    "nome": "Notebook HP 256R",
+    "descricao": "Tela 15,6” FHD, 8GB RAM, 256GB SSD, Windows 11 — ideal para estudo e escritório",
+    "preco": 3899,
+    "imagem": "img/256R.png",
+    "marca": "HP",
+    "categoria": "Notebooks"
+  },
+  {
+    "id": 20,
+    "nome": "Mouse Razer DeathAdder Essential",
+    "descricao": "Sensor 6400 DPI, design ergonômico para destros, 5 botões programáveis — clássico de conforto e precisão",
+    "preco": 149,
+    "imagem": "img/razer.png",
+    "marca": "Razer",
+    "categoria": "Periféricos"
+  },
+  {
+    "id": 21,
+    "nome": "Teclado Logitech K380 Bluetooth",
+    "descricao": "Multi‑device (até 3 dispositivos), Bluetooth, teclas côncavas, até 2 anos de bateria — compacto e silencioso",
+    "preco": 199,
+    "imagem": "img/K380.png",
+    "marca": "Logitech",
+    "categoria": "Periféricos"
+  },
+  {
+    "id": 22,
+    "nome": "Headset Razer Kraken X",
+    "descricao": "Ultraleve (250g), som 7.1 virtual, microfone flexível com cancelamento, compatível com PC/console — imersão com conforto",
+    "preco": 349,
+    "imagem": "img/krakenx.png",
+    "marca": "Razer",
+    "categoria": "Periféricos"
+  }
+]
