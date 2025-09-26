@@ -2,6 +2,8 @@
 
 Um marketplace moderno e completo desenvolvido com HTML, CSS e JavaScript puro, oferecendo uma experiência de compra fluida e intuitiva.
 
+> 📚 **Projeto acadêmico** desenvolvido para a disciplina de Desenvolvimento Web do IFRS (Instituto Federal do Rio Grande do Sul).
+
 ![MyMarket Logo](img/logo.png)
 
 ## ✨ Funcionalidades
